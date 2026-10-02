@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoHero303 Game - Earn Mode</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5596898375705682" crossorigin="anonymous"></script>
+<style>
+body{margin:0;background:#0f0f0f;color:white;text-align:center;font-family:sans-serif}
+#score{font-size:28px;margin:15px}
+#game{width:90%;max-width:360px;height:400px;background:#1a1a1a;margin:auto;border-radius:15px;position:relative;overflow:hidden;border:2px solid #333}
+#player{width:50px;height:50px;background:#00ff88;position:absolute;bottom:20px;left:155px;border-radius:10px;box-shadow:0 0 15px #00ff88}
+.coin{width:30px;height:30px;background:gold;position:absolute;border-radius:50%;box-shadow:0 0 10px gold}
+button{padding:14px 28px;background:#0084ff;color:white;border:none;border-radius:25px;font-weight:bold;margin:10px;font-size:16px}
+.ad-box{width:90%;max-width:360px;margin:10px auto;background:#222;padding:5px;border-radius:10px}
+</style>
+</head>
+<body>
+<h2>🎮 EchoHero303</h2>
+<div id="score">Score: 0 | Money: $0.00</div>
+
+<div class="ad-box">
+<!-- Your AdMob Banner Ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5596898375705682"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div id="game"><div id="player"></div></div>
+
+<button onclick="watchRewardedAd()">▶️ Watch Ad to Get +5 Score</button>
+<button onclick="location.reload()" style="background:#444">Restart</button>
+
+<div class="ad-box" style="margin-top:15px">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5596898375705682"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<p style="color:#888;font-size:12px">Pub ID: pub-5596898375705682 | Agbor Delta - 321001<br>Plays = Cash for you</p>
+
+<script>
+let score=0;
+let earnings=0;
+let playerX=155;
+const game=document.getElementById('game');
+const player=document.getElementById('player');
+
+function createCoin(){
+  const coin=document.createElement('div');
+  coin.className='coin';
+  coin.style.left=Math.random()*330+'px';
+  coin.style.top='0px';
+  game.appendChild(coin);
+  let y=0;
+  let fall=setInterval(()=>{
+    y+=4;
+    coin.style.top=y+'px';
+    if(y>330 && Math.abs(parseInt(coin.style.left)-playerX)<40){
+      score++;
+      earnings+=0.01;
+      updateDisplay();
+      coin.remove();
+      clearInterval(fall);
+    }
+    if(y>400){ coin.remove(); clearInterval(fall); }
+  },20);
+}
+setInterval(createCoin, 700);
+
+game.addEventListener('touchmove', e=>{
+  playerX=e.touches[0].clientX-game.getBoundingClientRect().left-25;
+  if(playerX<0) playerX=0;
+  if(playerX>310) playerX=310;
+  player.style.left=playerX+'px';
+});
+
+function updateDisplay(){
+  document.getElementById('score').innerText=`Score: ${score} | Money: $${earnings.toFixed(2)}`;
+}
+
+function watchRewardedAd(){
+  // This triggers AdMob interstitial
+  alert("🔥 Real Ad go show here! After user watches ad, Google go pay you. This is your rewarded ad slot.");
+  score+=5;
+  earnings+=0.05;
+  updateDisplay();
+  // Force refresh ads
+  try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){}
+}
+</script>
+</body>
+</html>
